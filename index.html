@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rippl Co — Social Media UGC Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0A0A0A;
+      --white: #F7F6F3;
+      --accent: #C8FF00;
+      --gray: #1A1A1A;
+      --mid: #2E2E2E;
+      --muted: #888;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      background: rgba(10,10,10,0.7);
+    }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--black);
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,255,0,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 1.0;
+      letter-spacing: -2px;
+      max-width: 900px;
+      margin-bottom: 32px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 48px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--black);
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .btn-ghost {
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.3); }
+
+    /* STATS BAR */
+    .stats-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 100px 40px;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      max-width: 600px;
+      margin-bottom: 60px;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .service-card {
+      background: var(--gray);
+      padding: 40px;
+      transition: background 0.2s;
+    }
+
+    .service-card:hover { background: var(--mid); }
+
+    .service-icon {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .service-price {
+      margin-top: 24px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* PROCESS */
+    .process-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 700px;
+    }
+
+    .process-item {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 24px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .process-item:last-child { border-bottom: none; }
+
+    .process-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 40px;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .process-item h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .process-item p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* CREATORS */
+    .creators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .creator-card {
+      background: var(--gray);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .creator-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .creator-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 16px;
+      border: 2px solid var(--border);
+    }
+
+    .creator-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .creator-card p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .creator-views {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      max-width: 900px;
+    }
+
+    .pricing-card {
+      background: var(--gray);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 32px;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent);
+      background: var(--mid);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 100px;
+    }
+
+    .pricing-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .pricing-price {
+      font-family: 'DM Serif Display', serif;
+      font-size: 48px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .pricing-per {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pricing-features li {
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      text-align: center;
+      background: var(--gray);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cta-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+
+    .cta-section h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .footer-logo span { color: var(--accent); }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+    /* TICKER */
+    .ticker {
+      overflow: hidden;
+      background: var(--accent);
+      padding: 12px 0;
+      white-space: nowrap;
+    }
+
+    .ticker-inner {
+      display: inline-flex;
+      animation: ticker 20s linear infinite;
+    }
+
+    .ticker-item {
+      color: var(--black);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0 40px;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 100px 20px 60px; }
+      .stats-bar { grid-template-columns: 1fr; padding: 40px 20px; gap: 32px; }
+      section { padding: 60px 20px; }
+      footer { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Rippl<span>.</span>Co</div>
+    <a href="mailto:ripplco@gmail.com" class="nav-cta">Work With Us</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow fade-up">Social Media UGC Agency</p>
+    <h1 class="fade-up delay-1">We make brands <em>go viral.</em></h1>
+    <p class="hero-sub fade-up delay-2">Rippl Co is a creator-first UGC agency built for social media. 4 creators. 50M+ views. Content that actually converts.</p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="mailto:ripplco@gmail.com" class="btn-primary">Book a Call</a>
+      <a href="#services" class="btn-ghost">See What We Do</a>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span class="ticker-item">50M+ Views Generated</span>
+      <span class="ticker-item">Social Media Specialists</span>
+      <span class="ticker-item">4 Creators Ready to Go</span>
+      <span class="ticker-item">Content That Converts</span>
+      <span class="ticker-item">Fast Turnaround</span>
+      <span class="ticker-item">50M+ Views Generated</span>
+      <span class="ticker-item">Social Media Specialists</span>
+      <span class="ticker-item">4 Creators Ready to Go</span>
+      <span class="ticker-item">Content That Converts</span>
+      <span class="ticker-item">Fast Turnaround</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-number">50M+</div>
+      <div class="stat-label">Total Views</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Active Creators</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">5–7</div>
+      <div class="stat-label">Day Delivery</div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <p class="section-eyebrow">What We Do</p>
+    <h2 class="section-title">Content built to sell.</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🎬</div>
+        <h3>UGC Videos</h3>
+        <p>Authentic, high-converting short-form videos made for TikTok, Instagram Reels, and YouTube Shorts. Product demos, hooks, reviews — we handle it all.</p>
+        <div class="service-price">From $150/video</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <h3>Video Packs</h3>
+        <p>Need volume? Get a batch of videos with different creators, hooks, and angles to test what converts best for your brand.</p>
+        <div class="service-price">From $400/3 videos</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <h3>Monthly Retainer</h3>
+        <p>Ongoing content supply for brands that want to scale. 8 videos per month, consistent output, priority turnaround.</p>
+        <div class="service-price">From $1,000/month</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section style="background: var(--gray); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <p class="section-eyebrow">How It Works</p>
+    <h2 class="section-title">Simple. Fast. Effective.</h2>
+    <div class="process-list">
+      <div class="process-item">
+        <div class="process-num">1</div>
+        <div>
+          <h3>You Brief Us</h3>
+          <p>Tell us about your product, your target audience, and what you want to achieve. We handle the creative direction from there.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">2</div>
+        <div>
+          <h3>We Match You With Creators</h3>
+          <p>We select the right creators from our roster for your brand and get content in production fast.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">3</div>
+        <div>
+          <h3>Content Delivered in 5–7 Days</h3>
+          <p>You receive ready-to-post videos optimized for TikTok, Instagram, and YouTube Shorts. Review, approve, and go live.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">4</div>
+        <div>
+          <h3>Scale What Works</h3>
+          <p>Double down on winning content with more creators, more angles, and more volume.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- PRICING -->
+  <section id="pricing" style="background: var(--gray); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <p class="section-eyebrow">Pricing</p>
+    <h2 class="section-title">Straightforward pricing.</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Starter</h3>
+        <div class="pricing-price">$150</div>
+        <div class="pricing-per">per video</div>
+        <ul class="pricing-features">
+          <li>1 UGC video</li>
+          <li>1 creator</li>
+          <li>5–7 day delivery</li>
+          <li>Full usage rights</li>
+          <li>1 revision round</li>
+        </ul>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <h3>Pack</h3>
+        <div class="pricing-price">$400</div>
+        <div class="pricing-per">3 videos</div>
+        <ul class="pricing-features">
+          <li>3 UGC videos</li>
+          <li>Multiple creators</li>
+          <li>5–7 day delivery</li>
+          <li>Full usage rights</li>
+          <li>2 revision rounds</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <h3>Retainer</h3>
+        <div class="pricing-price">$1,000</div>
+        <div class="pricing-per">per month</div>
+        <ul class="pricing-features">
+          <li>8 videos/month</li>
+          <li>All 4 creators</li>
+          <li>Priority delivery</li>
+          <li>Full usage rights</li>
+          <li>Unlimited revisions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to <em>ripple?</em></h2>
+    <p>Let's get your brand in front of millions. We're ready when you are.</p>
+    <a href="mailto:ripplco@gmail.com" class="btn-primary">Get in Touch</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Rippl<span>.</span>Co</div>
+    <p>ripplco@gmail.com</p>
+    <p>© 2026 Rippl Co. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
